@@ -1,4 +1,4 @@
-public class Person {
+public class Person implements PersonInterface {
 	// These are instance variables
 	private String name;
 	private int age;
@@ -20,13 +20,14 @@ public class Person {
 	 */
 	
 	public Person(String name, int age, String emplid, double gpa) {
-		this.name = name;
-		this.age = age;
+		this(name, age);
+		//this();
 		this.emplid = emplid;
 		this.gpa = gpa;
 	}
 	
 	public Person() {
+		
 		this.name = "Unknown";
 		this.age = 0;
 		this.gpa = 0.0;
@@ -41,15 +42,17 @@ public class Person {
 	 * of defining multiple constructors within the same class.
 	 */
 	public Person(String name, int age,  double gpa, String emplid) {
-		this.name = name;
-		this.age = age;
+		this(name, age);
 		this.emplid = emplid;
-		this.gpa = gpa;
+		//this.gpa = gpa;
+		this.setGpa(gpa);
 	}
 
 	public Person(String name, int age) {
+		System.out.println("This constructor is being called from another constructor");
 		this.name = name;
 		this.age = age;
+		
 		this.emplid = "00000000";
 		this.gpa = 0.0;
 	}	
@@ -97,10 +100,16 @@ public class Person {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public void setEmplid(String emplid) {
 		this.emplid = emplid;
 	}
 	
+	/*
+	 * 
+	 */
 	public void setGpa(double gpa) {
 		if(gpa < 0.0 || gpa > 4.0) {
 			this.gpa = 0.0;
@@ -111,8 +120,10 @@ public class Person {
 	
 	public Person copy(Person personToBeCopied) {
 		Person personCopy = null;
-		
-		personToBeCopied.name = "Mr No Name NYC Bronx";
+		personCopy = new Person();
+		personCopy.age = personToBeCopied.age;
+		//personCopy.name = "Mr No Name NYC Bronx";
+		personCopy.name = personToBeCopied.name;
 		
 		
 		return personCopy;
@@ -135,6 +146,72 @@ public class Person {
 	}	
 	
 	
+	public String toString() {
+		return "Person [name: " + this.name + ", Age: " + this.age + ", emplid: "
+				+ this.emplid + ", GPA: " + this.gpa + "]";
+	}
+	
+	
+	
+	
+	public boolean equals(Object object) {
+		
+		
+		// Null check
+		if(object == null) {
+			return false;
+		}
+		
+		// Compare the address of the calling object(this) and the parameter
+		if(this == object) {
+			return true;
+		}
+		
+		
+		if ( !(object instanceof Person)) {
+			return false;
+		}
+		
+		/* Typecast: Notice that our parameter is on object whose
+		 * data type is an Object. However, we are comparing persons.
+		 * 
+		 * We need to convert the Object to Person.
+		 */
+		Person otherPerson = null;
+		otherPerson = (Person)object;
+		
+		
+	
+		if(this.age != otherPerson.age) {
+			return false;
+		}else if(this.gpa != otherPerson.gpa) {
+			return false;
+		}else if((this.name == null) && (otherPerson.name != null)) {
+			return false;
+		}else if (!(this.name.equals(otherPerson.name))) {
+			return false;
+		}else if((this.emplid == null) && (otherPerson.emplid != null)) {
+			return false;
+		}else if(!(this.emplid.equals(otherPerson.emplid))) {
+			return false;
+		}
+		
+		
+		return true;
+	}
+	/*public static void squares(int [] nums) {
+		for(int i = 0; i < nums.length; i++) {
+			nums[i] = nums[i] * 10;
+		}
+	}
+	
+	public static void modifyPersonInfo(Person person) {
+		if (person != null) {
+			person.name = "Bronx NY";
+		}
+	}*/
+	
+	
 	public static void main(String[] args) {
 		
 		
@@ -142,31 +219,58 @@ public class Person {
 		 * Recall that an object is created using the keyword new.
 		 * 
 		 * So let us create a person object.
-		 * 
+		 * "Drink Water"
 		 */
 		
-		Person p1 = new Person("Drink Water", 26, "12345678", 4.0);
+		Person p1 = new Person(null, 30, "12345678", 3.0);
 		Person p2 = new Person("Blue Sky", 30, "87654321", 3.0);
-		p2.setName("Light");
-		Person p3 = p2;
-		p2.display();
+		
+		
+		Person person3 = new Person("Blue Sky", 30, "87654321", 3.0);
+		System.out.println(person3.equals(person3));
+		
+		
+		//p1.copy(p2);
+		
+		
+		//p2.setName("Light");
+		//Person p3 = p2;
+		//p2.display();
 		//p3.name = "Light";
 		//System.out.println(p3.name);
 		//System.out.println(p2.name);
 		
-		System.out.println(p1);
+		//System.out.println(p1);
 		
-		Person p4 = new Person();
-		p4.setAge(p2.age);
-		p4.setEmplid(p2.getEmplid());
-		p4.setGpa(p2.getGpa());
-		p4.setName(p2.getName());
+		//System.out.println(p1.toString());
 		
-		p2.copy(p4);
 		
-		p2.copy();
+		//modifyPersonInfo(p1);
 		
-		System.out.println(p4.getName());
+		///System.out.println(p1.getName());
+		
+		//Person p4 = new Person();
+		//p4.setAge(p2.age);
+		//p4.setEmplid(p2.getEmplid());
+		//p4.setGpa(p2.getGpa());
+		//p4.setName(p2.getName());
+		
+		//p2.copy(p4);
+		
+		//p2.copy();
+		
+		//System.out.println(p4.getName());
+		
+		int [] array = {10, 5, 4, 6, 7};
+		
+		int [] arrayCopy = {100, 50, 40, 60, 70};
+		
+		
+		//squares(array);
+		
+		for(int i = 0; i < array.length; i++) {
+			//System.out.println(array[i]);
+		}
 		
 		
 		
