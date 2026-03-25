@@ -12,6 +12,7 @@ public class LinkedListDriver {
 		list.add(50);
 		list.add(10);
 		list.add(80);
+		list.add(70, 1);
 		
 
 	}
