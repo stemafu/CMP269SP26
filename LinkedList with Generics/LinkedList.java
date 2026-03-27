@@ -1,3 +1,4 @@
+import java.util.Iterator;
 
 public class LinkedList <T> implements ListInterface<T> {
 
@@ -14,6 +15,13 @@ public class LinkedList <T> implements ListInterface<T> {
 		this.tail = null;
 	}
 
+	public Iterator<T> iterator() {
+		
+		return null;
+	}
+	
+	
+	
 	@Override
 	public boolean isEmpty() {
 		//return (this.head == null && this.tail == null);
@@ -152,10 +160,43 @@ public class LinkedList <T> implements ListInterface<T> {
 			removedNode.setNext(null);
 			this.numElements--;
 			return removedElement;
+		}else if (index == this.numElements - 1) {
+			
+			removedElement = this.tail.getData();
+			
+			Node<T> removedNode = this.tail;
+			
+			this.tail = this.tail.getPrevious();
+			this.tail.setNext(null);
+			removedNode.setPrevious(null);
+			
+			this.numElements--;
+			return removedElement;
+		}else {
+			int i = 0;
+			Node<T> currentNode = this.head;
+			
+			while(i < index) {
+				currentNode = currentNode.getNext();
+				i++;
+			}
+			
+			removedElement = currentNode.getData();
+			Node<T> newNextAfterRemoval = currentNode.getNext();
+			Node<T> newPreviousAfterRemoval = currentNode.getPrevious();
+			
+			newPreviousAfterRemoval.setNext(newNextAfterRemoval);
+			newNextAfterRemoval.setPrevious(newPreviousAfterRemoval);
+			
+			currentNode.setNext(null);
+			currentNode.setPrevious(null);
+			
+			this.numElements--;
+			
+			return removedElement;
+			
 		}
 		
-		
-		return null;
 	}
 
 	@Override
