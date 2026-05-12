@@ -4,11 +4,18 @@ print('Lehman College is part of CUNY')
 
 name = "Drink Water"
 
+print(type(name))
+
+
+# name = 10
+# print(type(name))
+
+
 print(name)
 
 # string indexing allow to access a value at an index in the string
 # syntax: stringName[indexNumber]
-print(name[0], "\nJonny Depp");
+print(name[0], "\nJonny Depp")
 
 
 listCUNYColleges = ["Lehman College", "BCC", "Hostos", "Baruch", "Hunter", "City Tech", "CCNY"]
@@ -38,3 +45,38 @@ def test():
 print(test())
 
 
+
+# loops in Python
+
+# for loop structure
+# for (item in sequence):
+#    # the body of the for loop
+# Examples of a sequence include:
+# lists, string, tuples
+
+print("\nThese are some of the CUNY Colleges that we know:")
+for college in listCUNYColleges:
+    print(college)
+
+
+alphabet = "ABCDEFGHIJKLMNOPQRSTVUWXYZ"
+print("Charaters (Letters) from the English Alphabet:")
+count = 0
+countDown = -1
+for letter in alphabet:
+    # The body of the for start here with this comment
+    print(letter)
+    count = count + 1
+    print(alphabet[countDown])
+    countDown = countDown - 1;
+
+
+
+# Python allow negative indexes for sequences.
+print("Here is the last letter in the alphabet", alphabet[-1])
+print("Here is the last letter in the alphabet", alphabet[25])
+
+
+
+print("Here is the next to the last letter in the alphabet", alphabet[-2])
+print("There are ", count, " letters in the English alphabet.")
